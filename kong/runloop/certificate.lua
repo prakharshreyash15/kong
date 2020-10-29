@@ -265,6 +265,20 @@ local function execute()
     log(ERR, "could not set configured private key: ", err)
     return ngx.exit(ngx.ERROR)
   end
+
+  if cert_and_key.cert_alt and cert_and_key.key_alt then
+    ok, err = set_cert(cert_and_key.cert_alt)
+    if not ok then
+      log(ERR, "could not set alternate configured certificate: ", err)
+      return ngx.exit(ngx.ERROR)
+    end
+
+    ok, err = set_priv_key(cert_and_key.key_alt)
+    if not ok then
+      log(ERR, "could not set alternate configured private key: ", err)
+      return ngx.exit(ngx.ERROR)
+    end
+  end
 end
 
 
