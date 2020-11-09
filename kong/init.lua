@@ -69,6 +69,7 @@ local DB = require "kong.db"
 local dns = require "kong.tools.dns"
 local meta = require "kong.meta"
 local lapis = require "lapis"
+local async = require "kong.async"
 local runloop = require "kong.runloop.handler"
 local stream_api = require "kong.tools.stream_api"
 local clustering = require "kong.clustering"
@@ -504,10 +505,18 @@ function Kong.init_worker()
   math.randomseed()
 
 
+  kong.async = async.new()
+  local ok, err = kong.async:init_worker()
+  if not ok then
+    stash_init_worker_error("failed to instantiate 'kong.async' module: " .. err)
+    return
+  end
+
+
   -- init DB
 
 
-  local ok, err = kong.db:init_worker()
+  ok, err = kong.db:init_worker()
   if not ok then
     stash_init_worker_error("failed to instantiate 'kong.db' module: " .. err)
     return
