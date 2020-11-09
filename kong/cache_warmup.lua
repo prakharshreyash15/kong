@@ -81,7 +81,10 @@ local function cache_warmup_single_entity(dao)
   end
 
   if entity_name == "services" and host_count > 0 then
-    ngx.timer.at(0, warmup_dns, hosts_array, host_count)
+    local ok, err = kong.async:run(warmup_dns, hosts_array, host_count)
+    if not ok then
+      ngx.log(ngx.NOTICE, "dns warmup failed: ", err)
+    end
   end
 
   local elapsed = math.floor((ngx.now() - start) * 1000)
