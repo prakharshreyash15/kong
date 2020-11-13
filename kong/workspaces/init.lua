@@ -42,6 +42,7 @@ end
 function workspaces.get_workspace_id()
   local r = base.get_request()
   if not r then
+    ngx.log(ngx.WARN, "could not obtain get_workspace_id: no request found")
     return nil
   end
 

@@ -382,6 +382,7 @@ function PluginsIterator.new(version)
   loaded_plugins = loaded_plugins or get_loaded_plugins()
 
   local ws_id = workspaces.get_workspace_id() or kong.default_workspace
+  assert(ws_id, "no workspace id was found")
   local ws = {
     [ws_id] = new_ws_data()
   }
