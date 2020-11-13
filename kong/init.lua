@@ -476,7 +476,7 @@ function Kong.init()
 
   else
     local default_ws = db.workspaces:select_by_name("default")
-    kong.default_workspace = default_ws and default_ws.id
+    kong.default_workspace = default_ws and default_ws.id or kong.default_workspace
 
     local ok, err = runloop.build_plugins_iterator("init")
     if not ok then
