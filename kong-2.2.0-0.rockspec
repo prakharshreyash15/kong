@@ -45,7 +45,7 @@ dependencies = {
   "kong-proxy-cache-plugin ~> 1.3",
   "kong-plugin-request-transformer ~> 1.3",
   "kong-plugin-session ~> 2.4",
-  "kong-plugin-aws-lambda ~> 3.5",
+  "kong-plugin-aws-lambda == 3.5.2",
   "kong-plugin-acme ~> 0.2",
   "kong-plugin-grpc-web ~> 0.2",
   "kong-plugin-grpc-gateway ~> 0.1",
