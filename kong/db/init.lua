@@ -227,7 +227,7 @@ function DB:truncate(table_name)
 
   -- re-create default workspace on full or workspaces truncate
   if not table_name or table_name == "workspaces" then
-    workspaces.upsert_default()
+    assert(workspaces.upsert_default())
   end
 
   if not ok then

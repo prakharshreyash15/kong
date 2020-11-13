@@ -414,7 +414,7 @@ local function get_db_utils(strategy, tables, plugins)
 
   if strategy ~= "off" then
     local workspaces = require "kong.workspaces"
-    workspaces.upsert_default(db)
+    assert(workspaces.upsert_default(db))
   end
 
   return bp, db

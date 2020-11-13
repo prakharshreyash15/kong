@@ -365,7 +365,8 @@ local function load_declarative_config(kong_config, entities, meta)
 
   if ok then
     local default_ws = kong.db.workspaces:select_by_name("default")
-    kong.default_workspace = default_ws and default_ws.id or kong.default_workspace
+    kong.default_workspace = assert(default_ws and default_ws.id or kong.default_workspace,
+      "default workspace could not be found")
 
     ok, err = runloop.build_plugins_iterator("init")
     if not ok then
@@ -476,7 +477,8 @@ function Kong.init()
 
   else
     local default_ws = db.workspaces:select_by_name("default")
-    kong.default_workspace = default_ws and default_ws.id or kong.default_workspace
+    kong.default_workspace = assert(default_ws and default_ws.id or kong.default_workspace,
+      "default workspace could not be found")
 
     local ok, err = runloop.build_plugins_iterator("init")
     if not ok then
